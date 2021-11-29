@@ -1,12 +1,12 @@
-# Y7000Series_Enable_Insyde_advanced_settings_mode
+# Y7000Series_Enable_Insyde_Advanced_Settings_Mode
 
 y7000系列解除BIOS高级设置选项限制，理论上其他的 Insyde 的 BIOS 同样适用。
 
 ## 准备工具
-- [UEFITool v0.2.8 ](https://github.com/LongSoft/UEFITool/releases/tag/0.28.0)
-- [HxD](https://mh-nexus.de/en/downloads.php?product=HxD20)
-- [LEGION_Y7000Series_Insyde_Advanced_Settings_Tools](https://github.com/xiaoMGitHub/LEGION_Y7000Series_Insyde_Advanced_Settings_Tools)
-- [LEGION_Y7000Series_Flash_BIOS_Tools](https://github.com/xiaoMGitHub/LEGION_Y7000Series_Flash_BIOS_Tools)  
+- [UEFITool v0.2.8 ](https://github.com/LongSoft/UEFITool/releases/tag/0.28.0)：用于提取BIOS模块
+- [HxD](https://mh-nexus.de/en/downloads.php?product=HxD20)：用于修改BIOS模块
+- [LEGION_Y7000Series_Insyde_Advanced_Settings_Tools](https://github.com/xiaoMGitHub/LEGION_Y7000Series_Insyde_Advanced_Settings_Tools)：用于解除BIOS校验
+- [LEGION_Y7000Series_Flash_BIOS_Tools](https://github.com/xiaoMGitHub/LEGION_Y7000Series_Flash_BIOS_Tools)：用于刷写BIOS  
 
 ## 操作步骤
 
@@ -25,10 +25,23 @@ y7000系列解除BIOS高级设置选项限制，理论上其他的 Insyde 的 BI
 
 打开 UEFITool 工具，导入提取出来的`11mb.fd`文件  
 ![images](images/03.png)  
-从工具栏的`File`-`Search`进去搜索界面，点击`Text`，输入`SetupUtilityApp`，或者点击GUID，输入`3935B0A1-A182-4887-BC56-675528E78877`。y7000系列的`Advanced`等隐藏菜单是寄存在`SetupUtilityApp`中，当然不同的型号可能不一样，具体如何查找，凭经验吧。  
+从工具栏的`File`-`Search`进去搜索界面，点击`Text`，输入`SetupUtilityApp`，或者点击GUID，输入`3935B0A1-A182-4887-BC56-675528E78877`。y7000系列的`Advanced`等隐藏菜单是寄存在`SetupUtilityApp`中，当然不同的型号可能不一样。  
+#### 为什么要搜索 SetupUtilityApp
+把BIOS文件用工具处理下得到
+
+```
+0xA6B88 Form Set: Advanced [C6D4769E-7F48-4D2A-98E9-87ADCCF35CCC], ClassGuid0 [9F85453E-2F03-4989-AD3B-4A840791AF3A] {0E A7 9E 76 D4 C6 48 7F 2A 4D 98 E9 87 AD CC F3 5C CC 98 16 82 16 01 3E 45 85 9F 03 2F 89 49 AD 3B 4A 84 07 91 AF 3A}
+```
+然后转换下得到  
+
+```
+Advanced ：9E 76 D4 C6 48 7F 2A 4D 98 E9 87 AD CC F3 5C CC
+```
+然后打开 UEFITool 工具，直接搜索 `Hex pattern`即可定位到`SetupUtilityApp`，不细说这个，大概知道怎么来即可。
+
 ![images](images/04.png)  
 
-将改模块导出  
+将该模块导出  
 ![images](images/06.png)   
 
 使用工具 HxD 编辑导出的模块  
