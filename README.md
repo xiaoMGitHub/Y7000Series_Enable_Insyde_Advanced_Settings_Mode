@@ -1,0 +1,2 @@
+# Y7000Series_Enable_Insyde_advanced_settings_mode
+y7000系列解除BIOS高级设置选项限制
